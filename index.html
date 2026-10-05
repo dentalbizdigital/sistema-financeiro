@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Finanças Isac — Outubro 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  /* ── PALETA CORPORATE SAAS ── */
+  --bg:         #F1F5F9;
+  --sidebar:    #0F172A;
+  --sidebar2:   #1E293B;
+  --accent:     #2563EB;
+  --accent-dim: rgba(37,99,235,0.10);
+  --accent-mid: rgba(37,99,235,0.06);
+  --surface:    #FFFFFF;
+  --surface2:   #F8FAFC;
+  --border:     #E2E8F0;
+  --border2:    #F1F5F9;
+  --shadow:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.04);
+  --text:       #0F172A;
+  --text2:      #475569;
+  --text3:      #94A3B8;
+  /* KPI colors */
+  --kpi-blue:   #3B82F6;
+  --kpi-blue-bg:rgba(59,130,246,0.08);
+  --kpi-amber:  #F59E0B;
+  --kpi-amber-bg:rgba(245,158,11,0.10);
+  --kpi-red:    #EF4444;
+  --kpi-red-bg: rgba(239,68,68,0.08);
+  --kpi-green:  #10B981;
+  --kpi-green-bg:rgba(16,185,129,0.10);
+  /* estados */
+  --red:        #EF4444;
+  --red-dim:    rgba(239,68,68,0.08);
+  --amber:      #D97706;
+  --amber-dim:  rgba(217,119,6,0.10);
+  --green-ok:   #10B981;
+  --green-ok-dim:rgba(16,185,129,0.10);
+  --blue:       #3B82F6;
+  --blue-dim:   rgba(59,130,246,0.10);
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --r:   10px;
+  --r-sm: 6px;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { min-height: 100vh; }
+
+/* ── LAYOUT ── */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+header {
+  background: var(--sidebar);
+  padding: 0 24px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logo {
+  font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.logo-dot {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: var(--accent); display: flex; align-items: center;
+  justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+.logo span { color: #94A3B8; font-weight: 400; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.badge-mes {
+  font-size: 11px; color: #94A3B8;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 3px 10px; border-radius: 20px; font-family: var(--mono);
+  letter-spacing: 0.3px;
+}
+.badge-status {
+  font-size: 11px; color: var(--kpi-amber);
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 3px 10px; border-radius: 20px;
+}
+
+main { flex: 1; padding: 22px 24px; max-width: 860px; margin: 0 auto; width: 100%; }
+
+/* ── SECTION HEADERS ── */
+.page-title {
+  font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.page-sub { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
+
+/* ── CAIXAS KPI ── */
+.caixas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.caixa {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.caixa-top { display: flex; align-items: center; justify-content: space-between; }
+.caixa-label { font-size: 11px; font-weight: 500; color: var(--text2); }
+.kpi-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.kpi-icon.blue   { background: var(--kpi-blue-bg); }
+.kpi-icon.amber  { background: var(--kpi-amber-bg); }
+.kpi-icon.red    { background: var(--kpi-red-bg); }
+.kpi-icon.green  { background: var(--kpi-green-bg); }
+.caixa-valor { font-size: 20px; font-weight: 700; font-family: var(--mono); letter-spacing: -0.8px; color: var(--text); line-height: 1; }
+.caixa-valor.neg { color: var(--kpi-red); }
+.caixa-sub { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+/* ── ALERTA ── */
+.alerta-nov {
+  background: rgba(217,119,6,0.07);
+  border: 1px solid rgba(217,119,6,0.20);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  font-size: 12px; color: var(--amber);
+  margin-bottom: 20px;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+
+/* ── GRÁFICO ── */
+.grafico-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.grafico-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.grafico-title { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -0.1px; }
+.grafico-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
+.toggle-group {
+  display: flex; gap: 1px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm); padding: 2px;
+}
+.toggle-btn {
+  font-size: 11px; font-weight: 500;
+  padding: 4px 12px; border-radius: 4px;
+  border: none; cursor: pointer;
+  font-family: var(--sans); color: var(--text3); background: none;
+  transition: all 0.15s;
+}
+.toggle-btn.active { background: var(--sidebar); color: #fff; box-shadow: var(--shadow-sm); }
+#chart-container { width: 100%; }
+
+/* ── GRID INFERIOR ── */
+.bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.card-title {
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── BARRAS PROGRESSO ── */
+.prog-item { margin-bottom: 13px; }
+.prog-item:last-child { margin-bottom: 0; }
+.prog-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.prog-nome { font-size: 12px; color: var(--text); font-weight: 500; }
+.prog-vals { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+.prog-track {
+  height: 5px; background: var(--surface2);
+  border-radius: 99px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.prog-fill {
+  height: 100%; border-radius: 99px;
+  background: var(--accent);
+  transition: width 0.6s ease;
+}
+.prog-fill.low { background: var(--kpi-red); }
+.prog-fill.ok  { background: var(--kpi-green); }
+
+/* ── INSIGHTS — aspeto tabular ── */
+.insight-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border2);
+}
+.insight-item:last-child { border-bottom: none; padding-bottom: 0; }
+.insight-icon {
+  width: 32px; height: 32px; border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.insight-icon.warn { background: var(--kpi-amber-bg); }
+.insight-icon.safe { background: var(--kpi-green-bg); }
+.insight-icon.info { background: var(--kpi-blue-bg); }
+.insight-texto { flex: 1; }
+.insight-titulo { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.insight-desc { font-size: 11px; color: var(--text2); line-height: 1.5; }
+
+/* ── TABS ── */
+.tabs {
+  display: flex; gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.tab {
+  flex: 1; text-align: center; padding: 9px 4px;
+  font-size: 12px; font-weight: 500;
+  color: var(--text3); cursor: pointer;
+  border: none; background: none; font-family: var(--sans);
+  transition: all 0.15s; border-right: 1px solid var(--border);
+}
+.tab:last-child { border-right: none; }
+.tab.active { background: var(--sidebar); color: #fff; font-weight: 600; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── IA QUICK ── */
+.ia-box {
+  background: var(--accent-mid);
+  border: 1px solid rgba(37,99,235,0.15);
+  border-radius: var(--r); padding: 12px; margin-bottom: 14px;
+}
+.ia-label { font-size: 10px; color: var(--accent); font-family: var(--mono); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.ia-row { display: flex; gap: 8px; }
+.ia-input {
+  flex: 1; background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm); color: var(--text);
+  font-family: var(--sans); font-size: 13px;
+  padding: 8px 10px; outline: none;
+  transition: border-color 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.ia-input::placeholder { color: var(--text3); }
+.ia-input:focus { border-color: var(--accent); }
+.btn-ia {
+  background: var(--accent);
+  color: #fff; border: none; border-radius: var(--r-sm);
+  padding: 8px 16px; font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: var(--sans);
+  white-space: nowrap; flex-shrink: 0; transition: opacity 0.15s;
+}
+.btn-ia:hover { opacity: 0.88; }
+.btn-ia:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── FORM MANUAL ── */
+.lancamento-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px; margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.lancamento-title { font-size: 12px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.input-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.input-wrap { flex: 1; }
+.input-wrap label { display: block; font-size: 10px; color: var(--text3); font-family: var(--mono); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+input, select {
+  width: 100%; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  color: var(--text); font-family: var(--sans); font-size: 13px;
+  padding: 8px 10px; outline: none; transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+select option { background: var(--surface); }
+.btn-lancar {
+  width: 100%; background: var(--sidebar); color: #fff;
+  border: none; border-radius: var(--r-sm); padding: 10px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.15s; font-family: var(--sans); margin-top: 4px;
+}
+.btn-lancar:hover { opacity: 0.88; }
+.btn-lancar:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── LOG — aspeto tabular ── */
+.log-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 16px; display: none;
+  box-shadow: var(--shadow-sm);
+}
+.log-box.visible { display: block; }
+.log-title {
+  font-size: 11px; color: var(--text2); font-family: var(--mono);
+  padding: 10px 14px; text-transform: uppercase; letter-spacing: 0.5px;
+  background: var(--surface2); border-bottom: 1px solid var(--border);
+}
+.log-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 14px; border-bottom: 1px solid var(--border2); font-size: 12px;
+  transition: background 0.1s;
+}
+.log-item:hover { background: var(--surface2); }
+.log-item:last-child { border-bottom: none; }
+.log-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.log-dot.entrada { background: var(--kpi-green); }
+.log-dot.saida   { background: var(--kpi-red); }
+.log-dot.repasse { background: var(--kpi-blue); }
+.log-info { flex: 1; }
+.log-desc { color: var(--text); font-weight: 500; }
+.log-meta { color: var(--text3); font-size: 11px; margin-top: 1px; }
+.log-valor { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+.log-valor.entrada { color: var(--kpi-green); }
+.log-valor.saida   { color: var(--kpi-red); }
+.log-valor.repasse { color: var(--kpi-blue); }
+
+/* ── A RECEBER — tabular ── */
+.section { margin-bottom: 18px; }
+.section-title {
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.receber-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-sm); }
+.receber-item {
+  background: var(--surface); border-bottom: 1px solid var(--border2);
+  padding: 10px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  transition: background 0.1s;
+}
+.receber-item:last-child { border-bottom: none; }
+.receber-item:hover { background: var(--surface2); }
+.receber-item.recebido { opacity: 0.42; }
+.receber-nome { font-size: 13px; font-weight: 500; }
+.receber-desc { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.receber-right { display: flex; align-items: center; gap: 10px; }
+.receber-valor { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+.btn-recebido {
+  background: none; border: 1px solid var(--border); border-radius: var(--r-sm);
+  color: var(--text3); font-size: 11px; padding: 3px 10px;
+  cursor: pointer; font-family: var(--sans); transition: all 0.15s; white-space: nowrap;
+}
+.btn-recebido:hover { border-color: var(--kpi-green); color: var(--kpi-green); }
+.receber-item.recebido .btn-recebido { background: var(--kpi-green-bg); border-color: var(--kpi-green); color: var(--kpi-green); }
+
+/* ── DÍVIDAS — tabular ── */
+.divida-item {
+  background: var(--surface); border-bottom: 1px solid var(--border2);
+  padding: 10px 14px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+  transition: background 0.1s;
+}
+.divida-item:first-of-type { border-top-left-radius: var(--r); border-top-right-radius: var(--r); }
+.divida-item:last-of-type { border-bottom: none; border-bottom-left-radius: var(--r); border-bottom-right-radius: var(--r); }
+.divida-item:hover { background: var(--surface2); }
+.divida-item.urgente { border-left: 3px solid var(--kpi-red); }
+.divida-nome { font-size: 13px; font-weight: 500; }
+.divida-plano { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.divida-valor { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--kpi-red); white-space: nowrap; }
+.tag { font-size: 10px; padding: 2px 7px; border-radius: 20px; font-family: var(--mono); font-weight: 500; }
+.tag.urgente { background: var(--kpi-red-bg);   color: var(--kpi-red); }
+.tag.neg     { background: var(--kpi-amber-bg);  color: var(--kpi-amber); }
+.tag.ok      { background: var(--kpi-green-bg);  color: var(--kpi-green); }
+
+/* container tabular para dívidas e faturas */
+#lista-dividas, #lista-faturas {
+  border: 1px solid var(--border); border-radius: var(--r);
+  overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface);
+  margin-bottom: 8px;
+}
+
+/* ── LOADER / TOAST ── */
+.loader { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(37,99,235,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast {
+  position: fixed; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translateX(-50%);
+  background: var(--sidebar); color: #fff;
+  font-size: 12px; padding: 10px 20px; border-radius: var(--r);
+  z-index: 999; opacity: 0; transition: opacity 0.2s;
+  pointer-events: none; font-family: var(--mono); white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.toast.show { opacity: 1; }
+
+@media (max-width: 600px) {
+  .caixas { grid-template-columns: 1fr 1fr; }
+  .bottom-grid { grid-template-columns: 1fr; }
+  main { padding: 14px 16px; }
+  .page-title { font-size: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">
+      <div class="logo-dot">💰</div>
+      IMA <span>Finanças</span>
+    </div>
+    <div class="header-right">
+      <span class="badge-status">⚡ Aviso Prévio ativo</span>
+      <span class="badge-mes">OUT / 2026</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">Painel Financeiro</div>
+    <div class="page-sub">Outubro 2026 · Último dia na Tese: 29/10</div>
+
+    <!-- CAIXAS KPI -->
+    <div class="caixas">
+      <div class="caixa">
+        <div class="caixa-top">
+          <div class="caixa-label">Saldo Livre</div>
+          <div class="kpi-icon blue">💰</div>
+        </div>
+        <div class="caixa-valor" id="saldo-livre">R$ 0,00</div>
+        <div class="caixa-sub">Caixa 1 — meu dinheiro</div>
+      </div>
+      <div class="caixa">
+        <div class="caixa-top">
+          <div class="caixa-label">Cofre Faturas</div>
+          <div class="kpi-icon amber">🔒</div>
+        </div>
+        <div class="caixa-valor" id="cofre-faturas">R$ 0,00</div>
+        <div class="caixa-sub">Caixa 2 — repasses</div>
+      </div>
+      <div class="caixa">
+        <div class="caixa-top">
+          <div class="caixa-label">Faturas</div>
+          <div class="kpi-icon red">💳</div>
+        </div>
+        <div class="caixa-valor" id="total-faturas">R$ 3.902,54</div>
+        <div class="caixa-sub">Nubank urgente · dia 22</div>
+      </div>
+      <div class="caixa">
+        <div class="caixa-top">
+          <div class="caixa-label">Reserva Nov</div>
+          <div class="kpi-icon green">🛡️</div>
+        </div>
+        <div class="caixa-valor" id="reserva-nov">R$ 0,00</div>
+        <div class="caixa-sub">Aviso prévio · 29/10</div>
+      </div>
+    </div>
+
+    <!-- ALERTA -->
+    <div class="alerta-nov">
+      <span>⚠️</span>
+      <span>Último dia na Tese: <strong>29/10</strong>. O proporcional de R$ 1.167,00 entra direto na Reserva Nov e não pode ser tocado.</span>
+    </div>
+
+    <!-- GRÁFICO HORIZONTE -->
+    <div class="grafico-card">
+      <div class="grafico-header">
+        <div>
+          <div class="grafico-title">Horizonte de Saldos</div>
+          <div class="grafico-sub" id="grafico-sub-text">Projeção do saldo livre ao longo de outubro</div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" onclick="setToggle(this,'1mes')">1 mês</button>
+          <button class="toggle-btn" onclick="setToggle(this,'3meses')">3 meses</button>
+        </div>
+      </div>
+      <div id="chart-container"></div>
+    </div>
+
+    <!-- GRID INFERIOR -->
+    <div class="bottom-grid">
+      <!-- BARRAS PROGRESSO -->
+      <div class="card">
+        <div class="card-title">Gastos por Categoria</div>
+        <div class="prog-item">
+          <div class="prog-label">
+            <span class="prog-nome">Fatura Nubank (Quitação)</span>
+            <span class="prog-vals">R$ 3.599 / R$ 3.599</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill ok" style="width:100%"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-label">
+            <span class="prog-nome">Gastos Fixos (Bolso 1)</span>
+            <span class="prog-vals">R$ 831 / R$ 831</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:100%"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-label">
+            <span class="prog-nome">Assinaturas Trabalho</span>
+            <span class="prog-vals">R$ 447 / R$ 450</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:99%"></div></div>
+        </div>
+        <div class="prog-item">
+          <div class="prog-label">
+            <span class="prog-nome">Gastos do Dia a Dia</span>
+            <span class="prog-vals" id="prog-dia-vals">R$ 0 / R$ 400</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" id="prog-dia-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <!-- INSIGHTS IA -->
+      <div class="card">
+        <div class="card-title">Alertas do Mês</div>
+        <div class="insight-item">
+          <div class="insight-icon warn">⚡</div>
+          <div class="insight-texto">
+            <div class="insight-titulo">Dia 22 — Impacto Nubank</div>
+            <div class="insight-desc">Saldo Livre e Cofre de Faturas sofrem queda acentuada para liquidar o rotativo de R$ 3.599,75. Garante que os repasses cheguem antes disso.</div>
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon safe">🛡️</div>
+          <div class="insight-texto">
+            <div class="insight-titulo">Reserva Protegida — Dia 29</div>
+            <div class="insight-desc">O encaixe de R$ 1.167 do aviso prévio vai direto para a Reserva Nov, isolado dos gastos correntes de outubro.</div>
+          </div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon info">📊</div>
+          <div class="insight-texto">
+            <div class="insight-titulo">A receber dos moradores</div>
+            <div class="insight-desc">R$ 1.122,00 ainda pendente de Ana, Sara, Luana, Davi, Rebeca, Ester e Carlos/Aethe. Cobrar antes do dia 20.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('lancar')">Lançar</button>
+      <button class="tab" onclick="showTab('receber')">A Receber</button>
+      <button class="tab" onclick="showTab('dividas')">Dívidas</button>
+    </div>
+
+    <!-- TAB LANÇAR -->
+    <div class="tab-content active" id="tab-lancar">
+      <div class="ia-box">
+        <div class="ia-label">⚡ Lançamento Rápido via IA</div>
+        <div class="ia-row">
+          <input type="text" class="ia-input" id="ia-input" placeholder='"iFood R$ 35" ou "Pix Sara R$ 157,07"' />
+          <button class="btn-ia" id="btn-ia" onclick="processarIA()">Lançar</button>
+        </div>
+      </div>
+      <div class="lancamento-box">
+        <div class="lancamento-title">Lançamento Manual</div>
+        <div class="input-row">
+          <div class="input-wrap" style="flex:2">
+            <label>Descrição</label>
+            <input type="text" id="f-desc" placeholder="Ex: iFood, Pix Sara..." />
+          </div>
+          <div class="input-wrap" style="flex:1">
+            <label>Valor (R$)</label>
+            <input type="number" id="f-valor" placeholder="0.00" step="0.01" min="0" />
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-wrap">
+            <label>Tipo</label>
+            <select id="f-tipo">
+              <option value="saida-minha">💸 Saída minha (Caixa 1)</option>
+              <option value="entrada-salario">💼 Salário / Entrada minha</option>
+              <option value="repasse-recebido">📥 Repasse recebido (Caixa 2)</option>
+              <option value="entrada-apex">⚖️ Apex — parcela trabalhista</option>
+              <option value="reserva">🚨 Aviso prévio → Reserva Nov</option>
+            </select>
+          </div>
+          <div class="input-wrap">
+            <label>Data</label>
+            <input type="date" id="f-data" />
+          </div>
+        </div>
+        <button class="btn-lancar" onclick="lancarManual()">Registrar Lançamento</button>
+      </div>
+      <div class="log-box" id="log-box">
+        <div class="log-title">Últimos lançamentos</div>
+        <div id="log-lista"></div>
+      </div>
+    </div>
+
+    <!-- TAB A RECEBER -->
+    <div class="tab-content" id="tab-receber">
+      <div class="section">
+        <div class="section-title">Entradas previstas</div>
+        <div class="receber-list" id="lista-entradas"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Cotas — outubro</div>
+        <div class="receber-list" id="lista-cotas"></div>
+      </div>
+    </div>
+
+    <!-- TAB DÍVIDAS -->
+    <div class="tab-content" id="tab-dividas">
+      <div class="section">
+        <div class="section-title">Dívidas ativas</div>
+        <div id="lista-dividas"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">Faturas outubro</div>
+        <div id="lista-faturas"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DADOS FIXOS ───────────────────────────────────────────────
+const ENTRADAS_PREVISTAS = [
+  { id:"apex-4", data:"07/10", desc:"Apex — 4ª parcela trabalhista", valor:554.43, caixa:1, tag:"⚖️" },
+  { id:"salario-chess", data:"16/10", desc:"Salário Chesslab (Tese)", valor:2500.00, caixa:1, tag:"💼" },
+  { id:"freelance-mileny", data:"20/10", desc:"Freelance Estylo Maria (Mileny)", valor:1500.00, caixa:1, tag:"💼" },
+  { id:"aviso-tese", data:"29/10", desc:"Proporcional aviso prévio — Tese", valor:1167.00, caixa:"reserva", tag:"🚨" },
+];
+const COTAS_OUTUBRO = [
+  { id:"sara-out", nome:"Sara Bella", desc:"Streaming + Spotify + Tim + Hapvida + Audible + Kindle", valor:380.00 },
+  { id:"ana-out", nome:"Ana", desc:"Autoescola 2/2 + Pizza 12/09", valor:536.15 },
+  { id:"sara-out2", nome:"Sara", desc:"Notebook + Jim.Com + Aline (Cartão)", valor:354.78 },
+  { id:"luana-out", nome:"Luana", desc:"MercadoLivre Preserve + Avulsos", valor:81.84 },
+  { id:"ester-out", nome:"Ester", desc:"Débito agosto em aberto + Caipirinha", valor:74.95 },
+  { id:"davi-out", nome:"Davi", desc:"Gaveteiros + Pizza Thaís", valor:39.89 },
+  { id:"rebeca-out", nome:"Rebeca", desc:"Pizza + Pão de queijo + Caipirinha 02/10", valor:34.39 },
+  { id:"carlos-aethe-set", nome:"Carlos Jr e Aethe", desc:"Pendência setembro", valor:272.98 },
+  { id:"luana-avulsos-set", nome:"Luana", desc:"Avulsos setembro", valor:36.31 },
+  { id:"thais-set", nome:"Thaís", desc:"Pizza 12/09", valor:14.39 },
+];
+const DIVIDAS = [
+  { id:"nubank-rot", credor:"Nubank Rotativo", valor:2787.00, taxa:"16,1%/mês", status:"urgente", plano:"Quitar dia 22/10 com salário + cofre de faturas" },
+  { id:"darf", credor:"DARF Simei", valor:2396.18, taxa:"Multa + juros", status:"atrasado", plano:"Gerar nova guia com Kamila — pagar em 4x no Nubank" },
+  { id:"ds", credor:"Comunidade DS", valor:833.36, taxa:"—", status:"negociando", plano:"Aguardando parcelamento no Nubank" },
+];
+const FATURAS_OUT = [
+  { cartao:"Nubank ••1627", valor:3599.75, vence:"22/10", status:"urgente" },
+  { cartao:"PicPay", valor:236.79, vence:"~20/10", status:"ok" },
+  { cartao:"Inter ••7140", valor:65.90, vence:"25/10", status:"ok" },
+  { cartao:"Nubank PJ ••1304", valor:168.34, vence:"—", status:"ok" },
+];
+
+// ─── DADOS DO GRÁFICO ──────────────────────────────────────────
+// Projeção: começa com saldo 0 (sem histórico anterior), registra eventos do mês
+function gerarDadosOctubro() {
+  const eventos = {
+    7:  +554.43,   // Apex
+    16: +2500.00,  // Salário Chess
+    20: +1500.00,  // Mileny
+    22: -3599.75,  // Nubank
+    25: -65.90,    // Inter
+    29: 0,         // Reserva Nov (não entra no saldo livre)
+  };
+  let saldo = 0;
+  const dados = [];
+  for (let d = 1; d <= 31; d++) {
+    if (eventos[d] !== undefined) saldo += eventos[d];
+    dados.push({ dia: d, saldo: Math.round(saldo * 100) / 100 });
+  }
+  return dados;
+}
+
+function gerarDados3Meses() {
+  // Out + Nov projetado (só fixos) + Dez (só fixos)
+  const meses = ["Out", "Nov", "Dez"];
+  const entradas = [4554.43, 4000, 4000];
+  const saidas   = [5497.14, 1462, 1462];
+  return meses.map((m, i) => ({
+    mes: m,
+    saldo: Math.round((entradas[i] - saidas[i]) * 100) / 100,
+    entradas: entradas[i],
+    saidas: saidas[i]
+  }));
+}
+
+// ─── ESTADO ────────────────────────────────────────────────────
+const EST_INICIAL = {
+  caixa1: 0, caixa2: 0, reservaNov: 0, gastosDia: 0,
+  lancamentos: [],
+  recebimentos: Object.fromEntries(
+    [...ENTRADAS_PREVISTAS, ...COTAS_OUTUBRO].map(e => [e.id, false])
+  )
+};
+
+function carregarEstado() {
+  try { const s = localStorage.getItem("fim-out26"); return s ? JSON.parse(s) : {...EST_INICIAL}; }
+  catch { return {...EST_INICIAL}; }
+}
+function salvarEstado() {
+  try { localStorage.setItem("fim-out26", JSON.stringify(estado)); } catch {}
+}
+
+let estado = carregarEstado();
+let modoGrafico = "1mes";
+
+// ─── FORMATAÇÃO ────────────────────────────────────────────────
+function fmt(v) {
+  return "R$ " + Math.abs(v).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function fmtK(v) {
+  if (Math.abs(v) >= 1000) return "R$" + (v/1000).toFixed(1) + "k";
+  return "R$" + v.toFixed(0);
+}
+
+// ─── GRÁFICO SVG PURO — SEM BIBLIOTECAS EXTERNAS ──────────────
+function renderGrafico() {
+  const container = document.getElementById("chart-container");
+  if (!container) return;
+  if (modoGrafico === "1mes") {
+    desenharAreaChart1Mes(container);
+  } else {
+    desenharBarChart3Meses(container);
+  }
+}
+
+function desenharAreaChart1Mes(container) {
+  // Dados fixos de outubro: acúmulo diário do saldo livre
+  // Eventos: dia 7 Apex +554, dia 16 Salário +2500, dia 20 Mileny +1500, dia 22 Nubank -3599, dia 25 Inter -65
+  const eventos = { 7:554.43, 16:2500, 20:1500, 22:-3599.75, 25:-65.90 };
+  let acum = 0;
+  const dados = [];
+  for (let d = 1; d <= 31; d++) {
+    if (eventos[d] !== undefined) acum += eventos[d];
+    dados.push({ dia: d, v: Math.round(acum * 10) / 10 });
+  }
+
+  const VB_W = 560, VB_H = 200;
+  const pad = { t: 18, r: 12, b: 28, l: 54 };
+  const pw = VB_W - pad.l - pad.r;
+  const ph = VB_H - pad.t - pad.b;
+
+  const minV = Math.min(...dados.map(d => d.v));
+  const maxV = Math.max(...dados.map(d => d.v));
+  const range = maxV - minV || 1;
+
+  const px = i => (i / (dados.length - 1)) * pw;
+  const py = v => ph - ((v - minV) / range) * ph;
+
+  // path da linha
+  const linhaD = dados.map((d, i) => `${i === 0 ? 'M' : 'L'}${px(i).toFixed(1)},${py(d.v).toFixed(1)}`).join(' ');
+  // path da área fechada
+  const areaD = linhaD
+    + ` L${px(dados.length - 1).toFixed(1)},${ph.toFixed(1)}`
+    + ` L${px(0).toFixed(1)},${ph.toFixed(1)} Z`;
+
+  // grid Y — 4 linhas
+  const gridLevels = [0, 0.33, 0.66, 1].map(f => minV + f * range);
+  const gridY = gridLevels.map(v => {
+    const y = py(v).toFixed(1);
+    const label = Math.abs(v) >= 1000 ? (v/1000).toFixed(1)+'k' : v.toFixed(0);
+    return `
+      <line x1="0" y1="${y}" x2="${pw}" y2="${y}" stroke="#E5E9DF" stroke-width="1"/>
+      <text x="-6" y="${(parseFloat(y)+4).toFixed(1)}" text-anchor="end" fill="#9AAA96" font-size="10" font-family="monospace">R$${label}</text>`;
+  }).join('');
+
+  // eixo X — dias chave
+  const diasLabel = [1, 7, 16, 20, 22, 25, 29, 31];
+  const eixoX = diasLabel.map(dia => {
+    const i = dia - 1;
+    const x = px(i).toFixed(1);
+    return `<text x="${x}" y="${ph + 18}" text-anchor="middle" fill="#9AAA96" font-size="10" font-family="monospace">${dia}</text>`;
+  }).join('');
+
+  // marcadores de eventos com tooltip visual
+  const EVENTOS_LABEL = [
+    { dia: 7,  label: '+Apex',    cor: '#2563EB' },
+    { dia: 16, label: '+Salário', cor: '#2563EB' },
+    { dia: 20, label: '+Mileny',  cor: '#2563EB' },
+    { dia: 22, label: '−Nubank',  cor: '#EF4444' },
+    { dia: 25, label: '−Inter',   cor: '#EF4444' },
+  ];
+  const marcadores = EVENTOS_LABEL.map(e => {
+    const i = e.dia - 1;
+    const cx = px(i).toFixed(1);
+    const cy = py(dados[i].v).toFixed(1);
+    const acima = dados[i].v > (minV + range * 0.5);
+    const ty = acima ? (parseFloat(cy) - 10).toFixed(1) : (parseFloat(cy) + 16).toFixed(1);
+    return `
+      <circle cx="${cx}" cy="${cy}" r="4" fill="${e.cor}" stroke="white" stroke-width="1.5"/>
+      <text x="${cx}" y="${ty}" text-anchor="middle" fill="${e.cor}" font-size="9" font-family="monospace" font-weight="600">${e.label}</text>`;
+  }).join('');
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${VB_W} ${VB_H}" preserveAspectRatio="xMidYMid meet"
+         style="width:100%;height:auto;display:block;overflow:visible"
+         xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2563EB" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#2563EB" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <g transform="translate(${pad.l},${pad.t})">
+        ${gridY}
+        <path d="${areaD}" fill="url(#g1)"/>
+        <path d="${linhaD}" fill="none" stroke="#2563EB" stroke-width="2"
+              stroke-linejoin="round" stroke-linecap="round"/>
+        ${marcadores}
+        ${eixoX}
+      </g>
+    </svg>`;
+}
+
+function desenharBarChart3Meses(container) {
+  // Out: entradas 4554 saídas 5497 → saldo -942
+  // Nov: entradas 4000 saídas 1462 → saldo +2538  (projetado com reserva)
+  // Dez: entradas 4000 saídas 1462 → saldo +2538
+  const dados = [
+    { mes: 'Outubro',   saldo: -942,  entradas: 4554, saidas: 5497 },
+    { mes: 'Novembro',  saldo: 2538,  entradas: 4000, saidas: 1462 },
+    { mes: 'Dezembro',  saldo: 2538,  entradas: 4000, saidas: 1462 },
+  ];
+
+  const VB_W = 560, VB_H = 200;
+  const pad = { t: 24, r: 20, b: 36, l: 54 };
+  const pw = VB_W - pad.l - pad.r;
+  const ph = VB_H - pad.t - pad.b;
+
+  const maxAbs = Math.max(...dados.map(d => Math.abs(d.saldo)));
+  const barW = 64;
+  const zeroY = ph / 2;
+  const escala = v => (Math.abs(v) / (maxAbs * 1.3)) * (ph / 2);
+
+  const barras = dados.map((d, i) => {
+    const cx = (pw / dados.length) * i + (pw / dados.length) / 2;
+    const x = cx - barW / 2;
+    const cor = d.saldo >= 0 ? '#2563EB' : '#EF4444';
+    const bh = escala(d.saldo);
+    const y = d.saldo >= 0 ? zeroY - bh : zeroY;
+    const labelY = d.saldo >= 0
+      ? (y - 6).toFixed(1)
+      : (y + bh + 14).toFixed(1);
+    const label = (d.saldo >= 0 ? '+' : '') + (d.saldo / 1000).toFixed(1) + 'k';
+    return `
+      <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW}" height="${bh.toFixed(1)}"
+            rx="5" fill="${cor}" opacity="0.88"/>
+      <text x="${cx.toFixed(1)}" y="${labelY}" text-anchor="middle"
+            fill="${cor}" font-size="11" font-family="monospace" font-weight="600">${label}</text>
+      <text x="${cx.toFixed(1)}" y="${(ph + 20).toFixed(1)}" text-anchor="middle"
+            fill="#5A6B57" font-size="11" font-family="sans-serif">${d.mes}</text>`;
+  }).join('');
+
+  // linha zero
+  const gridZero = `<line x1="0" y1="${zeroY.toFixed(1)}" x2="${pw}" y2="${zeroY.toFixed(1)}"
+    stroke="#C8D4C4" stroke-width="1"/>
+  <text x="-6" y="${(zeroY + 4).toFixed(1)}" text-anchor="end"
+    fill="#9AAA96" font-size="10" font-family="monospace">R$0</text>`;
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${VB_W} ${VB_H}" preserveAspectRatio="xMidYMid meet"
+         style="width:100%;height:auto;display:block"
+         xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(${pad.l},${pad.t})">
+        ${gridZero}
+        ${barras}
+      </g>
+    </svg>`;
+}
+
+function setToggle(btn, modo) {
+  document.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  modoGrafico = modo;
+  const sub = document.getElementById("grafico-sub-text");
+  sub.textContent = modo === "1mes"
+    ? "Projeção do saldo livre ao longo de outubro"
+    : "Saldo estimado por mês: Out / Nov / Dez";
+  renderGrafico();
+}
+
+// ─── RENDER CAIXAS ─────────────────────────────────────────────
+function renderCaixas() {
+  const c1 = document.getElementById("saldo-livre");
+  c1.textContent = fmt(estado.caixa1);
+  c1.className = "caixa-valor" + (estado.caixa1 < 0 ? " neg" : "");
+  document.getElementById("cofre-faturas").textContent = fmt(estado.caixa2);
+  document.getElementById("reserva-nov").textContent = fmt(estado.reservaNov);
+
+  // barra gastos dia a dia
+  const gd = estado.gastosDia || 0;
+  const pct = Math.min(100, (gd / 400) * 100);
+  const fillEl = document.getElementById("prog-dia-fill");
+  const valsEl = document.getElementById("prog-dia-vals");
+  if (fillEl) { fillEl.style.width = pct + "%"; fillEl.className = "prog-fill" + (pct > 80 ? " low" : ""); }
+  if (valsEl) valsEl.textContent = `R$ ${Math.round(gd)} / R$ 400`;
+}
+
+// ─── RENDER LOG ────────────────────────────────────────────────
+function renderLog() {
+  const lista = document.getElementById("log-lista");
+  const box = document.getElementById("log-box");
+  if (!estado.lancamentos || estado.lancamentos.length === 0) { box.classList.remove("visible"); return; }
+  box.classList.add("visible");
+  const ultimos = [...estado.lancamentos].reverse().slice(0, 8);
+  lista.innerHTML = ultimos.map(l => `
+    <div class="log-item">
+      <div class="log-dot ${l.tipo}"></div>
+      <div class="log-info">
+        <div class="log-desc">${l.desc}</div>
+        <div class="log-meta">${l.data} · ${l.caixaLabel}</div>
+      </div>
+      <div class="log-valor ${l.tipo}">${l.tipo==='saida'?'−':'+'}${fmt(l.valor)}</div>
+    </div>
+  `).join("");
+}
+
+// ─── RENDER A RECEBER ──────────────────────────────────────────
+function renderReceber() {
+  document.getElementById("lista-entradas").innerHTML = ENTRADAS_PREVISTAS.map(e => {
+    const rec = estado.recebimentos[e.id];
+    return `<div class="receber-item${rec?' recebido':''}">
+      <div>
+        <div class="receber-nome">${e.tag} ${e.desc}</div>
+        <div class="receber-desc">Previsto: ${e.data} · ${e.caixa==='reserva'?'→ Reserva Nov':'→ Caixa '+e.caixa}</div>
+      </div>
+      <div class="receber-right">
+        <div class="receber-valor">${fmt(e.valor)}</div>
+        <button class="btn-recebido" onclick="marcarRecebido('${e.id}',${e.valor},'${e.caixa}','${e.desc}')">
+          ${rec?'✓ recebido':'receber'}
+        </button>
+      </div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("lista-cotas").innerHTML = COTAS_OUTUBRO.map(c => {
+    const rec = estado.recebimentos[c.id];
+    return `<div class="receber-item${rec?' recebido':''}">
+      <div>
+        <div class="receber-nome">${c.nome}</div>
+        <div class="receber-desc">${c.desc} · → Cofre Faturas</div>
+      </div>
+      <div class="receber-right">
+        <div class="receber-valor">${fmt(c.valor)}</div>
+        <button class="btn-recebido" onclick="marcarRecebidoCota('${c.id}',${c.valor},'${c.nome}')">
+          ${rec?'✓ recebido':'receber'}
+        </button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ─── RENDER DÍVIDAS ────────────────────────────────────────────
+function renderDividas() {
+  document.getElementById("lista-dividas").innerHTML = DIVIDAS.map(d => `
+    <div class="divida-item${d.status==='urgente'?' urgente':''}">
+      <div>
+        <div class="divida-nome">${d.credor} <span class="tag ${d.status==='urgente'?'urgente':'neg'}">${d.status}</span></div>
+        <div class="divida-plano">${d.plano}</div>
+      </div>
+      <div class="divida-valor">${fmt(d.valor)}</div>
+    </div>`).join("");
+
+  document.getElementById("lista-faturas").innerHTML = FATURAS_OUT.map(f => `
+    <div class="divida-item${f.status==='urgente'?' urgente':''}">
+      <div>
+        <div class="divida-nome">${f.cartao} <span class="tag ${f.status==='urgente'?'urgente':'ok'}">${f.status==='urgente'?'urgente':'em dia'}</span></div>
+        <div class="divida-plano">Vence: ${f.vence}</div>
+      </div>
+      <div class="divida-valor">${fmt(f.valor)}</div>
+    </div>`).join("");
+}
+
+// ─── AÇÕES ─────────────────────────────────────────────────────
+function marcarRecebido(id, valor, caixa, desc) {
+  if (estado.recebimentos[id]) return;
+  estado.recebimentos[id] = true;
+  if (caixa === "reserva") estado.reservaNov += valor;
+  else if (caixa === 1) estado.caixa1 += valor;
+  else estado.caixa2 += valor;
+  registrarLancamento({ desc, valor, tipo:"entrada", caixaLabel: caixa==="reserva"?"Reserva Nov":"Caixa 1" });
+  salvarEstado(); renderTudo(); toast("✓ " + desc);
+}
+
+function marcarRecebidoCota(id, valor, nome) {
+  if (estado.recebimentos[id]) return;
+  estado.recebimentos[id] = true;
+  estado.caixa2 += valor;
+  registrarLancamento({ desc:"Repasse "+nome, valor, tipo:"repasse", caixaLabel:"Cofre Faturas" });
+  salvarEstado(); renderTudo(); toast("🔒 Repasse de "+nome+" no cofre!");
+}
+
+function lancarManual() {
+  const desc = document.getElementById("f-desc").value.trim();
+  const valor = parseFloat(document.getElementById("f-valor").value);
+  const tipo = document.getElementById("f-tipo").value;
+  const data = document.getElementById("f-data").value;
+  if (!desc || !valor || valor <= 0) { toast("Preencha descrição e valor!"); return; }
+  const dataFmt = data ? new Date(data+"T12:00:00").toLocaleDateString("pt-BR") : new Date().toLocaleDateString("pt-BR");
+  const map = {
+    "saida-minha":      { dx: -1, caixa:"caixa1",    label:"Caixa 1 — Saída",   tipo:"saida", dia:true },
+    "entrada-salario":  { dx:  1, caixa:"caixa1",    label:"Caixa 1 — Entrada", tipo:"entrada" },
+    "repasse-recebido": { dx:  1, caixa:"caixa2",    label:"Cofre Faturas",     tipo:"repasse" },
+    "entrada-apex":     { dx:  1, caixa:"caixa1",    label:"Caixa 1 — Apex",   tipo:"entrada" },
+    "reserva":          { dx:  1, caixa:"reservaNov",label:"Reserva Nov",       tipo:"entrada" },
+  };
+  const m = map[tipo];
+  estado[m.caixa] += m.dx * valor;
+  if (m.dia) estado.gastosDia = (estado.gastosDia || 0) + valor;
+  registrarLancamento({ desc, valor, tipo:m.tipo, caixaLabel:m.label, data:dataFmt });
+  salvarEstado();
+  document.getElementById("f-desc").value = "";
+  document.getElementById("f-valor").value = "";
+  renderTudo(); toast("✓ Lançamento registrado!");
+}
+
+function registrarLancamento(l) {
+  if (!estado.lancamentos) estado.lancamentos = [];
+  estado.lancamentos.push({...l, data: l.data || new Date().toLocaleDateString("pt-BR")});
+  if (estado.lancamentos.length > 50) estado.lancamentos = estado.lancamentos.slice(-50);
+}
+
+// ─── IA QUICK ──────────────────────────────────────────────────
+const REPASSE_NOMES = ["sara","ana","luana","davi","rebeca","carlos","aethe","ester","thaís","thais","mileny"];
+
+async function processarIA() {
+  const input = document.getElementById("ia-input").value.trim();
+  if (!input) return;
+  const btn = document.getElementById("btn-ia");
+  btn.disabled = true;
+  btn.innerHTML = '<div class="loader"></div>';
+  try {
+    const sample = await claude.use("sample");
+    if (!sample) throw new Error("IA indisponível");
+    const prompt = `Você é assistente financeiro do Isac Bezerra. Analise o lançamento e retorne JSON puro (sem markdown):
+{"desc":"string curta","valor":0.00,"tipo":"saida-minha|entrada-salario|repasse-recebido|entrada-apex|reserva","caixaLabel":"onde vai"}
+Regras: Pix de Sara/Ana/Luana/Davi/Rebeca/Carlos/Aethe/Ester/Thaís/Mileny = repasse-recebido. iFood/Uber/restaurante = saida-minha. Salário/Chesslab/Tese = entrada-salario. Apex = entrada-apex. Aviso prévio = reserva.
+Lançamento: "${input}"`;
+    const res = await sample(prompt, {modelTier:"quick"});
+    const json = JSON.parse(res.text.replace(/```json?|```/g,"").trim());
+    const map = {
+      "saida-minha":      { dx:-1, caixa:"caixa1",     tipo:"saida",    dia:true },
+      "entrada-salario":  { dx: 1, caixa:"caixa1",     tipo:"entrada" },
+      "repasse-recebido": { dx: 1, caixa:"caixa2",     tipo:"repasse" },
+      "entrada-apex":     { dx: 1, caixa:"caixa1",     tipo:"entrada" },
+      "reserva":          { dx: 1, caixa:"reservaNov", tipo:"entrada" },
+    };
+    const m = map[json.tipo] || map["saida-minha"];
+    estado[m.caixa] += m.dx * json.valor;
+    if (m.dia) estado.gastosDia = (estado.gastosDia||0) + json.valor;
+    registrarLancamento({desc:json.desc, valor:json.valor, tipo:m.tipo, caixaLabel:json.caixaLabel});
+    salvarEstado();
+    document.getElementById("ia-input").value = "";
+    renderTudo();
+    toast("⚡ "+json.desc+" "+(m.dx<0?"−":"+")+ fmt(json.valor));
+  } catch {
+    const match = input.match(/R?\$?\s*(\d+[,.]?\d*)/i);
+    if (match) {
+      const valor = parseFloat(match[1].replace(",","."));
+      const isRep = REPASSE_NOMES.some(n => input.toLowerCase().includes(n));
+      const isEnt = /salário|chesslab|mileny|apex|tese/i.test(input);
+      if (isRep) { estado.caixa2 += valor; registrarLancamento({desc:input, valor, tipo:"repasse", caixaLabel:"Cofre Faturas"}); }
+      else if (isEnt) { estado.caixa1 += valor; registrarLancamento({desc:input, valor, tipo:"entrada", caixaLabel:"Caixa 1"}); }
+      else { estado.caixa1 -= valor; estado.gastosDia=(estado.gastosDia||0)+valor; registrarLancamento({desc:input, valor, tipo:"saida", caixaLabel:"Caixa 1"}); }
+      salvarEstado();
+      document.getElementById("ia-input").value = "";
+      renderTudo(); toast("✓ Lançado: "+fmt(valor));
+    } else toast("Tenta: 'iFood R$ 35'");
+  } finally {
+    btn.disabled = false; btn.textContent = "Lançar";
+  }
+}
+document.getElementById("ia-input").addEventListener("keydown", e => { if(e.key==="Enter") processarIA(); });
+
+// ─── TABS ──────────────────────────────────────────────────────
+function showTab(id) {
+  const ids = ["lancar","receber","dividas"];
+  document.querySelectorAll(".tab").forEach((t,i) => t.classList.toggle("active", ids[i]===id));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.toggle("active", c.id==="tab-"+id));
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2800);
+}
+
+// ─── INIT ──────────────────────────────────────────────────────
+function renderTudo() {
+  renderCaixas(); renderLog(); renderReceber(); renderDividas(); renderGrafico();
+}
+document.getElementById("f-data").value = new Date().toISOString().split("T")[0];
+renderTudo();
+window.addEventListener("resize", renderGrafico);
+</script>
+</body>
+</html>
